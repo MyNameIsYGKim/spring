@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.book.mapper.BookMapper">
+	
+	<!-- 전체조회 -->
+	<select id="bookList" resultType="BookVO">
+		SELECT book_no
+			   , book_name
+			   , book_coverimg
+			   , book_date
+			   , book_price
+			   , book_publisher
+			   , book_info
+		FROM book_tbl_06
+		ORDER BY book_no
+	</select>
+	
+	<!-- 단건조회 -->
+	<select id="bookInfo" resultType="BookVO">
+		SELECT book_no
+			   , book_name
+			   , book_coverimg
+			   , book_date
+			   , book_price
+			   , book_publisher
+			   , book_info
+		FROM book_tbl_06
+		WEERE book_no = #{bookNo}
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertBook" parameterType="BookVO">
+		INSERT INTO book_tbl_06
+				(
+					book_no
+			   		, book_name
+			   		<if test="book_coverimg!=null and !book_coverimg.equals('')">
+			   		, book_coverimg
+			   		</if>
+			   		<if test="book_date!=null">
+			   		, book_date
+			   		</if>
+			   		<if test="book_price!=null">
+			   		, book_price
+			   		</if>
+			   		<if test="book_publisher!=null and !book_publisher.equals('')">
+			   		, book_publisher
+			   		</if>
+			   		<if test="book_info!=null and !book_info.equals('')">
+			   		, book_info
+			   		</if>
+				)
+		VALUES
+				(
+					#{bookNo}
+					, #{bookName}
+					<if test="book_coverimg!=null and !book_coverimg.equals('')">
+			   		, #{bookCoverimg}
+			   		</if>
+			   		<if test="book_date!=null">
+			   		, #{bookDate}
+			   		</if>
+			   		<if test="book_price!=null">
+			   		, #{bookPrice}
+			   		</if>
+			   		<if test="book_publisher!=null and !book_publisher.equals('')">
+			   		, #{bookPublisher}
+			   		</if>
+			   		<if test="book_info!=null and !book_info.equals('')">
+			   		, #{bookInfo}
+			   		</if>
+				)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateBook" parameterType="BookVo">
+		UPDATE book_tbl_06
+		<set>
+			<if test="book_coverimg!=null and !book_coverimg.equals('')">
+	   		book_coverimg = #{bookCoverimg},
+	   		</if>
+	   		<if test="book_date!=null">
+	   		book_date = #{bookDate},
+	   		</if>
+	   		<if test="book_price!=null">
+	   		book_price = #{bookPrice},
+	   		</if>
+	   		<if test="book_publisher!=null and !book_publisher.equals('')">
+	   		book_publisher = #{bookPublisher},
+	   		</if>
+	   		<if test="book_info!=null and !book_info.equals('')">
+	   		book_info = #{bookInfo},
+	   		</if>
+		</set>
+		WHERE book_no = #{bookNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteBook" parameterType="BookVO">
+		DELETE FROM book_tbl_06
+		WHERE book_no = #{bookNo}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
