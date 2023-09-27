@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>전체 사원 조회</title>
+</head>
+<body>
+	<div>
+		<button th:text="등록"
+			th:onclick="|location.href='@{/empInsert}'|" ></button>
+		<table>
+			<thead>
+				<tr>
+					<th>employee_id</th>
+					<th>first_name</th>
+					<th>job_id</th>
+					<th>hire_date<th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="empInfo : ${empList}">
+					<tr th:onclick="|location.href='@{/empInfo(employeeId=${empInfo.employeeId})}'|">
+													<!-- @{}안의 ()는 데이터로 인식 -->
+						<td th:text="${empInfo.employeeId}" />
+						<td th:text="${empInfo.firstName}" />
+						<td>[[${empInfo.jobId}]]</td>
+						<td>[[${#dates.format(empInfo.hireDate, 'yyyy년 MM월 dd일')}]]</td>
+						<td><a th:href="@{/empInfo(employeeId=${empInfo.employeeId})}">보기</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
