@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.book.mapper.BookMapper">
+	<!-- 전체조회 -->
+	<select id="selectBookAll" resultType="BookVO"> <!-- resultType: 리턴타입 -->
+		SELECT *
+		FROM book_tbl_06
+		ORDER BY book_no
+	</select>
+	
+	<!-- 단건조회 : 북넘버 -->
+	<select id="selectBookNextNo" resultType="Integer">
+		SELECT NVL(MAX(book_no), 0) + 1
+		FROM book_tbl_06
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertBookInfo" parameterType="BookVO"> <!-- parameterType: 매개변수 -->
+		INSERT INTO book_tbl_06
+				(
+					book_no
+					, book_name
+					, book_coverimg
+					, book_date
+					, book_price
+					, book_publisher
+					, book_info
+				)
+		VALUES
+				(
+					#{bookNo}
+					, #{bookName}
+					, #{bookCoverimg}
+					, #{bookDate}
+					, #{bookPrice}
+					, #{bookPublisher}
+					, #{bookInfo}
+				)
+	</insert>
+	
+</mapper>
+
+
+
+
+
+

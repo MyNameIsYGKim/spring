@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.book.mapper.RentMapper">
+	<select id="selectRentStatus" resultType="RentVO">
+		SELECT A.BOOK_NO,
+			A.BOOK_NAME,
+			SUM(B.RENT_PRICE) as rentPrice,
+			COUNT(B.RENT_PRICE) as rentStatus
+		FROM BOOK_TBL_06 A JOIN RENT_TBL_06 B
+						ON A.BOOK_NO = B.BOOK_NO
+		GROUP BY A.BOOK_NO, A.BOOK_NAME
+		ORDER BY A.BOOK_NO
+	</select>
+</mapper>
